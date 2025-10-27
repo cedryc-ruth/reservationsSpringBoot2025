@@ -9,7 +9,8 @@
 </head>
 <body>
 	<div class="container">
-	     <div layout:fragment="content">
+        <div id="notification" th:replace="~{main :: notification}"></div>
+	    <div layout:fragment="content">
 	        <h1 th:text="|${artist.firstname}  ${artist.lastname}|">Bob Sull</h1>
 	        
 	        <form th:action="@{/artists/{id}/edit(id=${artist.id})}" th:object="${artist}" th:method="put">

@@ -9,7 +9,8 @@
 </head>
 <body>
 	<div class="container">
-	     <div layout:fragment="content">
+        <div id="notification" th:replace="~{main :: notification}"></div>
+	    <div layout:fragment="content">
 	        <h1>Nouvel artiste</h1>	        
 
 	        <form th:action="@{/artists/create}" th:object="${artist}" th:method="post">
