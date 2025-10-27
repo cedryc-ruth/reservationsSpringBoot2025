@@ -7,7 +7,7 @@ xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout">
 	    <th:block layout:fragment="css"></th:block>
     </head>
     <body>
-        <div th:replace="fragments/header :: header">Header here</div>
+        <div th:replace="~{fragments/header :: header}">Header here</div>
         <div class="container">
         	<div id="notification" layout:fragment="notification">
                 <div th:if="${successMessage}" class="alert alert-success">
@@ -20,7 +20,7 @@ xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout">
 
             <div layout:fragment="content">Main content will be inserted here.</div>
         </div>
-        <div th:replace="fragments/footer :: footer">&copy; 2016 The Static Templates</div>
+        <div th:replace="~{fragments/footer :: footer}">&copy; 2016 The Static Templates</div>
       
         <th:block layout:fragment="scripts"></th:block>
     </body>
