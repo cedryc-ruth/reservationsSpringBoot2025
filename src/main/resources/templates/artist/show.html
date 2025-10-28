@@ -8,8 +8,8 @@
 	<div class="container">
         <div id="notification" th:replace="~{main :: notification}"></div>
 	    <div layout:fragment="content">
-	        <h1 th:text="${artist.firstname} +' '+ ${artist.lastname}">Bob Sull</h1>
-	        <h1 th:text="|${artist.firstname}  ${artist.lastname}|">Bob Sull</h1>
+	        <h2 th:text="${artist.firstname} +' '+ ${artist.lastname}">Bob Sull</h2>
+	        <h2 th:text="|${artist.firstname}  ${artist.lastname}|">Bob Sull</h2>
 
 	        <div class="actions">
         		<a th:href="@{/artists/{id}/edit(id=${artist.id})}">Edit</a>

@@ -2,6 +2,7 @@ package be.iccbxl.pid.reservations_springboot.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,10 +22,16 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String login;
+
+	@Column(nullable = false)
 	private String password;
+
 	private String firstname;
 	private String lastname;
+
+	@Column(unique = true, nullable = false)
 	private String email;
+	
 	private String langue;
 	
 	@Enumerated(EnumType.STRING)
@@ -34,6 +41,6 @@ public class User {
 
 	@Override
 	public String toString() {
-		return login + "(" + firstname + " " + lastname + " - " + role + ")";
+		return login + " (" + firstname + " " + lastname + " - " + role + ")";
 	}
 }
