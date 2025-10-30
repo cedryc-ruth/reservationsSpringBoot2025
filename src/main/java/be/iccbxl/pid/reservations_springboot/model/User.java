@@ -21,6 +21,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(unique = true, nullable = false)
 	private String login;
 
 	@Column(nullable = false)
@@ -37,7 +39,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
 	
-	private LocalDateTime created_at;
+	private LocalDateTime created_at = LocalDateTime.now();
 
 	@Override
 	public String toString() {

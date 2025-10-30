@@ -27,7 +27,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(
-    @RequestParam(required=false) final Boolean loginRequired,
+            @RequestParam(required=false) final Boolean loginRequired,
             @RequestParam(required=false) final Boolean loginError,
             @RequestParam(required=false) final Boolean logoutSuccess,
             final Model model) {

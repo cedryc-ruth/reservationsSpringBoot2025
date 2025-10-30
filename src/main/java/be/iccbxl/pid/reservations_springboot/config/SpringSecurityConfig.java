@@ -22,7 +22,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth -> { auth
                     .requestMatchers("/").permitAll()
                     .requestMatchers("/login", "/login**", "/css/**", "/js/**",
-                        "/forgot-password", "/reset-password", "/reset-success").permitAll()
+                        "/forgot-password", "/reset-password", "/reset-success", "/register").permitAll()
                     .requestMatchers("/admin").hasRole("ADMIN")
                     .requestMatchers("/user").hasRole("MEMBER")
                     .anyRequest().authenticated();
