@@ -1,12 +1,15 @@
 package be.iccbxl.pid.reservations_springboot.dto;
 
 
+import be.iccbxl.pid.reservations_springboot.validation.PasswordMatches;
+import be.iccbxl.pid.reservations_springboot.validation.StrongPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
+@PasswordMatches  // annotation personnalisée
 public class UserRegistrationDto {
 
     @NotBlank(message = "Le prénom est obligatoire")
@@ -20,7 +23,7 @@ public class UserRegistrationDto {
     private String login;
 
     @NotBlank(message = "Le mot de passe est obligatoire")
-    @Size(min = 6, message = "Le mot de passe doit contenir au moins 6 caractères")
+    @StrongPassword
     private String password;
 
     @NotBlank(message = "Veuillez confirmer votre mot de passe")
