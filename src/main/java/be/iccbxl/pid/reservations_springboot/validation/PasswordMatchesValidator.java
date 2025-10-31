@@ -10,7 +10,8 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
     public boolean isValid(UserRegistrationDto dto, ConstraintValidatorContext context) {
         String pwd = dto.getPassword();
         String confirm = dto.getConfirmPassword();
-
+System.out.println("Passe: "+pwd);
+System.out.println("Confirm: "+confirm);
         // Si les deux champs sont vides, on considère que le mot de passe n’est pas modifié => OK
         if ((pwd == null || pwd.isBlank()) && (confirm == null || confirm.isBlank())) {
             return true;
