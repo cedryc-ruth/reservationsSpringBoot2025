@@ -1,11 +1,11 @@
 package be.iccbxl.pid.reservations_springboot.model;
 
 public enum UserRole {	
-	  ADMIN("admin"),
-	  MEMBER("member"),
-	  AFFILIATE("affiliate"),
-	  PRESS("press"),
-	  PRODUCER("producer");
+	  ADMIN("Administrateur"),
+	  MEMBER("Membre"),
+	  AFFILIATE("Affilié"),
+	  PRESS("Critique de presse"),
+	  PRODUCER("Producteur");
 
 	  private String role;
 
