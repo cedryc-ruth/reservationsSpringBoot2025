@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ProfileController {
@@ -71,8 +72,7 @@ public class ProfileController {
     @PostMapping(value = "/profile", params = {"edit"})
     public String updateProfile(
             @Valid @ModelAttribute("user") UserProfileDto dto,
-            BindingResult result,
-            Model model) {
+            BindingResult result, Model model, RedirectAttributes redirAttrs) {
 
         if (result.hasErrors()) {
             model.addAttribute("errorMessage", "Erreurs de validation !");
@@ -81,26 +81,32 @@ public class ProfileController {
 
         // Appel du service pour gérer mot de passe, etc.
         userService.updateUserFromDto(dto);
-        model.addAttribute("successMessage", "Profil mis à jour avec succès !");    //TODO ne s'affiche pas
+        redirAttrs.addFlashAttribute("successMessage", "Profil mis à jour avec succès !");
         return "redirect:profile";
     }
 
     @DeleteMapping("/profile/delete")
-    public String deleteAccount(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String deleteAccount(HttpServletRequest request, HttpServletResponse response,
+        RedirectAttributes redirAttrs) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String login = auth.getName();
+
+        if (request.isUserInRole("ADMIN")) {
+            redirAttrs.addFlashAttribute("errorMessage", "Pas de suppression de son propre compte admin !");
+            return "redirect:/profile";
+        }
 
         // Supprimer l'utilisateur courant
         userService.deleteByLogin(login);
 
         // Invalider la session HTTP (déconnecte l'utilisateur)
-        /*
+        /* Solution 1
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }*/
 
-        // Variante plus Spring-Security “propre”
+        // Variante plus Spring-Security "propre"
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
@@ -108,7 +114,7 @@ public class ProfileController {
         // Effacer le contexte de sécurité
         SecurityContextHolder.clearContext();
 
-        model.addAttribute("successMessage", "Votre compte a été supprimé avec succès.");   //TODO ne s'affiche pas
+        redirAttrs.addFlashAttribute("successMessage", "Votre compte a été supprimé avec succès.");
         return "redirect:/";
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RegistrationController {
@@ -27,7 +28,7 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDto dto, 
-            BindingResult result, Model model) {
+            BindingResult result, Model model, RedirectAttributes redirAttrs) {
         if (result.hasErrors()) {
             model.addAttribute("errorMessage", "Erreurs de validation !");
             return "authentication/register";
@@ -40,7 +41,7 @@ public class RegistrationController {
         }
 
         userService.registerFromDto(dto);
-        model.addAttribute("successMessage", "Inscription réussie !");
+        redirAttrs.addFlashAttribute("successMessage", "Inscription réussie !");
         return "redirect:login";
     }
 }
